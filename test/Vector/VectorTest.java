@@ -2,6 +2,8 @@ package Vector;
 
 import org.junit.Test;
 
+import java.util.IllegalFormatCodePointException;
+
 import static org.junit.Assert.*;
 
 
@@ -11,7 +13,11 @@ public class VectorTest {
         assertEquals(new Vector(5, 10, 9), new Vector(1, 2, 3).sum(new Vector(4, 8, 6)));
         assertEquals(new Vector(-2, -1), new Vector(1, -2).sum(new Vector(-3, 1)));
         assertEquals(new Vector(), new Vector().sum(new Vector()));
-        assertEquals(new Vector(), new Vector(4, 5).sum(new Vector(6, 7, 8)));                                     //?????
+        try {
+            new Vector(4, 5).sum(new Vector(6, 7, 8));
+            assertTrue(false);
+        } catch (IllegalArgumentException ex) {
+        }
     }
 
     @Test
@@ -34,13 +40,20 @@ public class VectorTest {
 
     @Test
     public void module() {
-        assertEquals(3, new Vector(1, -2, 2).module());                                                       //??????????
-        assertEquals(5, new Vector(3, 4).module());
+        assertEquals(3, new Vector(1, -2, 2).module(), 1e-5);
+        assertEquals(5, new Vector(3, 4).module(), 1e-5);
     }
 
     @Test
     public void scalarProduct() {
-        assertEquals(41, new Vector(-6, 9, 5).scalarProduct(new Vector(-1, 0, 7)));                      //??????????
+        assertEquals(41, new Vector(-6, 9, 5).scalarProduct(new Vector(-1, 0, 7)), 1e-5);
+        assertEquals(6, new Vector(5, -4).scalarProduct(new Vector(2, 1)), 1e-5);
+    }
+
+    @Test
+    public void vectorProduct() {
+        assertEquals(new Vector(18, 12, 6), new Vector(-2, 3, 0).vectorProduct(new Vector(-2, 0, 6)));
+        assertEquals(new Vector(9, -5, 3), new Vector(2, 3, -1).vectorProduct(new Vector(1, 3, 2)));
     }
 
 }

@@ -2,6 +2,13 @@ package Vector;
 
 import java.util.Arrays;
 
+/*
+Класс хранит вектор произвольной размерности.
+Методы: сложение и вычитание векторов, умножение и деление на число,
+скалярное произведение векторов, вычисление модуля вектора.
+Утилита: векторное произведение трёхмерных векторов.
+ */
+
 public final class Vector {
 
     private int d;
@@ -67,9 +74,16 @@ public final class Vector {
         if (this.d != that.d) throw new IllegalArgumentException("Different sizes");
         double sum = 0.0;
         for (int i = 0; i < d; i++) {
-            sum += (this.data[i] * this.data[i]);
+            sum += (this.data[i] * that.data[i]);
         }
         return sum;
+    }
+
+    public Vector vectorProduct(Vector that) {
+        double newX = this.data[1] * that.data[2] - this.data[2] * that.data[1];
+        double newY = this.data[2] * that.data[0] - this.data[0] * that.data[2];
+        double newZ = this.data[0] * that.data[1] - this.data[1] * that.data[0];
+        return new Vector(newX, newY, newZ);
     }
 
     public String toString() {
