@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 
 public class VectorTest {
+
     @Test
     public void sum() {
         assertEquals(new Vector(5, 10, 9), new Vector(1, 2, 3).sum(new Vector(4, 8, 6)));
