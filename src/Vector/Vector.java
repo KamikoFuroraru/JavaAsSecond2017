@@ -15,7 +15,7 @@ public final class Vector {
     private final double[] data;
 
     //конструктор 1
-    private Vector(final int d) {
+    public Vector(final int d) {
         this.d = d;
         data = new double[d];
     }
