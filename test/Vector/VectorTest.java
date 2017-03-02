@@ -51,7 +51,7 @@ public class VectorTest {
     @Test
     public void vectorProduct() {
         assertEquals(new Vector(18, 12, 6), Vector.vectorProduct(new Vector(-2, 3, 0), new Vector(-2, 0, 6)));
-        assertEquals(new Vector(18, 12, 6), Vector.vectorProduct(new Vector(-2, 3, 0), new Vector(-2, 0, 6)));
+        assertEquals(new Vector(9, -5, 3), Vector.vectorProduct(new Vector(2, 3, -1), new Vector(1, 3, 2)));
     }
 
 }
