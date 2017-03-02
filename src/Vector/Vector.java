@@ -11,21 +11,19 @@ import java.util.Arrays;
 
 public final class Vector {
 
-    private int d;
-    private double[] data;
+    private final int d;
+    private final double[] data;
 
     //конструктор 1
-    public Vector(int d) {
+    private Vector(final int d) {
         this.d = d;
         data = new double[d];
     }
 
     //конструктор 2
-    public Vector(double... a) {
+    public Vector(final double... a) {
         d = a.length;
-        data = new double[d];
-        for (int i = 0; i < d; i++)
-            data[i] = a[i];
+        data = Arrays.copyOf(a, d);
     }
 
     //размер
@@ -33,63 +31,63 @@ public final class Vector {
         return d;
     }
 
-    public Vector sum(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Different sizes");
-        Vector c = new Vector(d);
+    public Vector sum(final Vector other) {
+        if (this.d != other.d) throw new IllegalArgumentException("Different sizes");
+        final Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
-            c.data[i] = this.data[i] + that.data[i];
+            c.data[i] = this.data[i] + other.data[i];
         return c;
     }
 
-    public Vector difference(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Different sizes");
-        Vector c = new Vector(d);
+    public Vector difference(final Vector other) {
+        if (this.d != other.d) throw new IllegalArgumentException("Different sizes");
+        final Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
-            c.data[i] = this.data[i] - that.data[i];
+            c.data[i] = this.data[i] - other.data[i];
         return c;
     }
 
-    public Vector multiplication(double alpha) {
-        Vector c = new Vector(d);
+    public Vector multiplication(final double alpha) {
+        final Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
             c.data[i] = alpha * data[i];
         return c;
     }
 
-    public Vector division(double beta) {
-        Vector c = new Vector(d);
+    public Vector division(final double beta) {
+        final Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
             c.data[i] = data[i] / beta;
         return c;
     }
 
-    public double module() {
-        double sum = 0.0;
-        for (int i = 0; i < d; i++)
-            sum += (this.data[i] * this.data[i]);
-        return Math.sqrt(sum);
-    }
-
-    public double scalarProduct(Vector that) {
-        if (this.d != that.d) throw new IllegalArgumentException("Different sizes");
+    public double scalarProduct(final Vector other) {
+        if (this.d != other.d) throw new IllegalArgumentException("Different sizes");
         double sum = 0.0;
         for (int i = 0; i < d; i++) {
-            sum += (this.data[i] * that.data[i]);
+            sum += (this.data[i] * other.data[i]);
         }
         return sum;
     }
 
-    public Vector vectorProduct(Vector that) {
-        double newX = this.data[1] * that.data[2] - this.data[2] * that.data[1];
-        double newY = this.data[2] * that.data[0] - this.data[0] * that.data[2];
-        double newZ = this.data[0] * that.data[1] - this.data[1] * that.data[0];
+    public double module() {
+        return Math.sqrt(scalarProduct(this));
+    }
+
+    public static Vector vectorProduct(final Vector a, final Vector b) {
+        if (a.d != 3 && b.d != 3) throw new IllegalArgumentException();
+        double newX = a.data[1] * b.data[2] - a.data[2] * b.data[1];
+        double newY = a.data[2] * b.data[0] - a.data[0] * b.data[2];
+        double newZ = a.data[0] * b.data[1] - a.data[1] * b.data[0];
         return new Vector(newX, newY, newZ);
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder();
+        s.append("(");
         for (int i = 0; i < d; i++)
-            s.append(data[i] + " ");
+            s.append(data[i] + ", ");
+        s.delete(d - 2, d - 1).append(")");
         return s.toString();
     }
 
@@ -100,8 +98,7 @@ public final class Vector {
 
         Vector vector = (Vector) o;
 
-        if (d != vector.d) return false;
-        return Arrays.equals(data, vector.data);
+        return d == vector.d && Arrays.equals(data, vector.data);
     }
 
     @Override

@@ -2,8 +2,6 @@ package Vector;
 
 import org.junit.Test;
 
-import java.util.IllegalFormatCodePointException;
-
 import static org.junit.Assert.*;
 
 
@@ -15,8 +13,8 @@ public class VectorTest {
         assertEquals(new Vector(), new Vector().sum(new Vector()));
         try {
             new Vector(4, 5).sum(new Vector(6, 7, 8));
-            assertTrue(false);
-        } catch (IllegalArgumentException ex) {
+            fail();
+        } catch (IllegalArgumentException e) {
         }
     }
 
@@ -52,8 +50,8 @@ public class VectorTest {
 
     @Test
     public void vectorProduct() {
-        assertEquals(new Vector(18, 12, 6), new Vector(-2, 3, 0).vectorProduct(new Vector(-2, 0, 6)));
-        assertEquals(new Vector(9, -5, 3), new Vector(2, 3, -1).vectorProduct(new Vector(1, 3, 2)));
+        assertEquals(new Vector(18, 12, 6), Vector.vectorProduct(new Vector(-2, 3, 0), new Vector(-2, 0, 6)));
+        assertEquals(new Vector(18, 12, 6), Vector.vectorProduct(new Vector(-2, 3, 0), new Vector(-2, 0, 6)));
     }
 
 }
