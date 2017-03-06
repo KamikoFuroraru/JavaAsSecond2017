@@ -7,34 +7,49 @@ import static org.junit.Assert.*;
 
 public class VectorTest {
 
+    private final Vector vectorA = new Vector(1, 2, 3);
+    private final Vector vectorB = new Vector(4, 8, 6);
+    private final Vector vectorC = new Vector(1, -2);
+    private final Vector vectorD = new Vector(-3, 1);
+    private final Vector vectorE = new Vector(4, 5);
+    private final Vector vectorF = new Vector(6, 7, 8);
+
     @Test
-    public void sum() {
-        assertEquals(new Vector(5, 10, 9), new Vector(1, 2, 3).sum(new Vector(4, 8, 6)));
-        assertEquals(new Vector(-2, -1), new Vector(1, -2).sum(new Vector(-3, 1)));
-        assertEquals(new Vector(), new Vector().sum(new Vector()));
+    public void sum() throws Exception {
+        vectorA.sum(vectorB);
+        assertEquals(new Vector(5, 10, 9), vectorA);
+        vectorC.sum(vectorD);
+        assertEquals(new Vector(-2, -1), vectorC);
+
         try {
-            new Vector(4, 5).sum(new Vector(6, 7, 8));
+            vectorE.sum(vectorF);
             fail();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException ignored) {
         }
     }
 
     @Test
     public void difference() {
-        assertEquals(new Vector(-3, -6, -3), new Vector(1, 2, 3).difference(new Vector(4, 8, 6)));
-        assertEquals(new Vector(4, -3), new Vector(1, -2).difference(new Vector(-3, 1)));
+        vectorA.difference(vectorB);
+        assertEquals(new Vector(-3, -6, -3), vectorA);
+        vectorC.difference(vectorD);
+        assertEquals(new Vector(4, -3), vectorC);
     }
 
     @Test
     public void multiplication() {
-        assertEquals(new Vector(5, 10, 15), new Vector(1, 2, 3).multiplication(5));
-        assertEquals(new Vector(8, -16), new Vector(1, -2).multiplication(8));
+        vectorA.multiplication(5);
+        assertEquals(new Vector(5, 10, 15), vectorA);
+        vectorC.multiplication(8);
+        assertEquals(new Vector(8, -16), vectorC);
     }
 
     @Test
     public void division() {
-        assertEquals(new Vector(0.5, 1, 1.5), new Vector(1, 2, 3).division(2));
-        assertEquals(new Vector(0.2, -0.4), new Vector(1, -2).division(5));
+        vectorA.division(2);
+        assertEquals(new Vector(0.5, 1, 1.5), vectorA);
+        vectorC.division(5);
+        assertEquals(new Vector(0.2, -0.4), vectorC);
     }
 
     @Test
@@ -45,14 +60,14 @@ public class VectorTest {
 
     @Test
     public void scalarProduct() {
-        assertEquals(41, new Vector(-6, 9, 5).scalarProduct(new Vector(-1, 0, 7)), 1e-5);
-        assertEquals(6, new Vector(5, -4).scalarProduct(new Vector(2, 1)), 1e-5);
+        assertEquals(38, vectorA.scalarProduct(vectorB), 1e-5);
+        assertEquals(128, vectorB.scalarProduct(vectorF), 1e-5);
     }
 
     @Test
     public void vectorProduct() {
-        assertEquals(new Vector(18, 12, 6), Vector.vectorProduct(new Vector(-2, 3, 0), new Vector(-2, 0, 6)));
-        assertEquals(new Vector(9, -5, 3), Vector.vectorProduct(new Vector(2, 3, -1), new Vector(1, 3, 2)));
+        assertEquals(new Vector(-12, 6, 0), Vector.vectorProduct(vectorA, vectorB));
+        assertEquals(new Vector(22, 4, -20), Vector.vectorProduct(vectorB, vectorF));
     }
 
 }

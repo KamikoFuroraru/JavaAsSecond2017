@@ -31,41 +31,33 @@ public final class Vector {
         return d;
     }
 
-    public Vector sum(final Vector other) {
+    public void sum(final Vector other) {
         if (this.d != other.d) throw new IllegalArgumentException("Different sizes");
-        final Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
-            c.data[i] = this.data[i] + other.data[i];
-        return c;
+            this.data[i] += other.data[i];
     }
 
-    public Vector difference(final Vector other) {
+    public void difference(final Vector other) {
         if (this.d != other.d) throw new IllegalArgumentException("Different sizes");
-        final Vector c = new Vector(d);
         for (int i = 0; i < d; i++)
-            c.data[i] = this.data[i] - other.data[i];
-        return c;
+            this.data[i] -= other.data[i];
     }
 
-    public Vector multiplication(final double alpha) {
-        final Vector c = new Vector(d);
+    public void multiplication(final double alpha) {
         for (int i = 0; i < d; i++)
-            c.data[i] = alpha * data[i];
-        return c;
+            data[i] *= alpha;
     }
 
-    public Vector division(final double beta) {
-        final Vector c = new Vector(d);
+    public void division(final double beta) {
         for (int i = 0; i < d; i++)
-            c.data[i] = data[i] / beta;
-        return c;
+            data[i] /= beta;
     }
 
     public double scalarProduct(final Vector other) {
         if (this.d != other.d) throw new IllegalArgumentException("Different sizes");
         double sum = 0.0;
         for (int i = 0; i < d; i++) {
-            sum += (this.data[i] * other.data[i]);
+            sum += this.data[i] * other.data[i];
         }
         return sum;
     }
@@ -87,7 +79,7 @@ public final class Vector {
         s.append("(");
         for (int i = 0; i < d; i++)
             s.append(data[i] + ", ");
-        s.delete(d - 2, d - 1).append(")");
+        s.delete(s.length() - 2, s.length()).append(")");
         return s.toString();
     }
 
