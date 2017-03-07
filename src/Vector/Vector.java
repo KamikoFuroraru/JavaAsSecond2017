@@ -68,14 +68,14 @@ public final class Vector {
 
     public static Vector vectorProduct(final Vector a, final Vector b) {
         if (a.d != 3 && b.d != 3) throw new IllegalArgumentException();
-        double newX = a.data[1] * b.data[2] - a.data[2] * b.data[1];
-        double newY = a.data[2] * b.data[0] - a.data[0] * b.data[2];
-        double newZ = a.data[0] * b.data[1] - a.data[1] * b.data[0];
+        final double newX = a.data[1] * b.data[2] - a.data[2] * b.data[1];
+        final double newY = a.data[2] * b.data[0] - a.data[0] * b.data[2];
+        final double newZ = a.data[0] * b.data[1] - a.data[1] * b.data[0];
         return new Vector(newX, newY, newZ);
     }
 
     public String toString() {
-        StringBuilder s = new StringBuilder();
+        final StringBuilder s = new StringBuilder();
         s.append("(");
         for (int i = 0; i < d; i++)
             s.append(data[i] + ", ");
